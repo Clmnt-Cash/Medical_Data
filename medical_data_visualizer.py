@@ -4,7 +4,29 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # 1
-df = None
+df = pd.read_csv("medical_examination.csv")
+
+# df_melt = pd.melt(
+#    df,
+#    id_vars="cardio",
+#    value_vars=["cholesterol", "gluc", "alco", "active", "smoke"],
+# )
+## plot using seaborn
+# g = sns.catplot(
+#    x="variable",
+#    hue="value",
+#    col="cardio",
+#    data=df_melt,
+#    kind="count",
+#    height=5,
+#    aspect=1.2,
+# )
+## Add titles and labels
+# g.set_axis_labels("Variable", "Count")
+# g.set_titles("Cardio = {col_name}")
+# g.despine(left=True)
+# plt.tight_layout()
+# plt.show()
 
 # 2
 df["overweight"] = None
