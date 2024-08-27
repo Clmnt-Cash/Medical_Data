@@ -6,23 +6,6 @@ import numpy as np
 # 1
 df = pd.read_csv("medical_examination.csv")
 
-## plot using seaborn
-# g = sns.catplot(
-#    x="variable",
-#    hue="value",
-#    col="cardio",
-#    data=df_melt,
-#    kind="count",
-#    height=5,
-#    aspect=1.2,
-# )
-## Add titles and labels
-# g.set_axis_labels("Variable", "Count")
-# g.set_titles("Cardio = {col_name}")
-# g.despine(left=True)
-# plt.tight_layout()
-# plt.show()
-
 # 2
 # Calculate IMC (height in meters)
 df["IMC"] = df["weight"] / (df["height"] / 100) ** 2
@@ -45,14 +28,30 @@ def draw_cat_plot():
         id_vars="cardio",
         value_vars=["cholesterol", "gluc", "smoke", "alco", "active", "overweight"],
     )
-
     # 6
-    df_cat = None
-
+    df_cat = (
+        df_cat.groupby(["cardio", "variable", "value"]).size().reset_index(name="total")
+    )
+    print(df_cat)
     # 7
+    cat_plot = sns.catplot(
+        x="variable",  # categorical features
+        y="total",  # count of occurrences
+        hue="value",  # Split by the binary value (0 or 1)
+        col="cardio",  # Separate plots for each cardio value (0 and 1)
+        data=df_cat,  # grouped DataFrame
+        kind="bar",  # bar plot
+        height=5,  # Height of each facet
+        aspect=1.2,
+    )
+    # Add labels and adjust the layout
+    cat_plot.set_axis_labels("Variable", "Total Count")
+    cat_plot.set_titles("Cardio = {col_name}")
+    cat_plot.despine(left=True)
+    plt.tight_layout()
 
     # 8
-    fig = None
+    fig = cat_plot.fig
 
     # 9
     fig.savefig("catplot.png")
