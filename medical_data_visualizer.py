@@ -37,6 +37,9 @@ df["overweight"] = (df["IMC"] > 25).astype(int)
 df = df.drop(columns=["IMC"])
 
 # 3
+# Normalize 'cholesterol' and 'gluc'
+df["cholesterol"] = df["cholesterol"].apply(lambda x: 0 if x == 1 else 1)
+df["gluc"] = df["gluc"].apply(lambda x: 0 if x == 1 else 1)
 
 
 # 4
