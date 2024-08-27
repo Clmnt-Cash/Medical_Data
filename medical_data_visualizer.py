@@ -29,7 +29,12 @@ df = pd.read_csv("medical_examination.csv")
 # plt.show()
 
 # 2
-df["overweight"] = None
+# Calculate IMC (height in meters)
+df["IMC"] = df["weight"] / (df["height"] / 100) ** 2
+# Create the 'overweight' column (1 if IMC > 25 else 0)
+df["overweight"] = (df["IMC"] > 25).astype(int)
+# Drop the IMC column
+df = df.drop(columns=["IMC"])
 
 # 3
 
