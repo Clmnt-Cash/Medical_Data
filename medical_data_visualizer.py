@@ -6,11 +6,6 @@ import numpy as np
 # 1
 df = pd.read_csv("medical_examination.csv")
 
-# df_melt = pd.melt(
-#    df,
-#    id_vars="cardio",
-#    value_vars=["cholesterol", "gluc", "alco", "active", "smoke"],
-# )
 ## plot using seaborn
 # g = sns.catplot(
 #    x="variable",
@@ -45,7 +40,11 @@ df["gluc"] = df["gluc"].apply(lambda x: 0 if x == 1 else 1)
 # 4
 def draw_cat_plot():
     # 5
-    df_cat = None
+    df_cat = pd.melt(
+        df,
+        id_vars="cardio",
+        value_vars=["cholesterol", "gluc", "smoke", "alco", "active", "overweight"],
+    )
 
     # 6
     df_cat = None
